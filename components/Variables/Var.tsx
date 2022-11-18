@@ -20,12 +20,13 @@ export const Var = ({
   isGlobal = false,
   defaultVal = "",
 }: VarProps) => {
-  const { fields, setField, addField } =
+  const { fields, defaultVals, setField, addField, setDefaultVal } =
     useContext<VarsContextProps>(VarsContext);
-  const val = fields[name] || defaultVal || "";
+  const val = fields[name] || defaultVals[name] || "";
 
   useEffect(() => {
     addField(name, isGlobal, description);
+    setDefaultVal(name, defaultVal);
   }, [isGlobal, name, addField, description]);
 
   const onChange = useCallback(

@@ -17,9 +17,11 @@ export interface VarsContextProps {
 export const VarsContext = createContext<VarsContextProps>({
   fields: {},
   globalFields: {},
+  defaultVals: {},
   fieldDescriptions: {},
   setField: () => {},
   addField: () => {},
+  setDefaultVal: () => {},
 });
 
 interface VarsProviderProps {
@@ -51,6 +53,7 @@ export const VarsProvider = ({ children }: VarsProviderProps) => {
   const [fields, setFields] = useState({});
   const [globalFields, setGlobalFields] = useState({});
   const [fieldDescriptions, setFieldDescriptions] = useState({});
+  const [defaultVals, setDefaultVals] = useState({});
 
   const setField = useCallback(
     (name, value = "") => {
@@ -82,15 +85,27 @@ export const VarsProvider = ({ children }: VarsProviderProps) => {
     [setField, fields, globalFields]
   );
 
+  const setDefaultVal = useCallback(
+    (name: string, val: string) => {
+      setDefaultVals((prevDefaults) => {
+        return { ...prevDefaults, [name]: val };
+      });
+    },
+    fields,
+    globalFields
+  );
+
   const value = useMemo(
     () => ({
       fields,
       globalFields,
       fieldDescriptions,
+      defaultVals,
       setField,
       addField,
+      setDefaultVal,
     }),
-    [fields, globalFields, fieldDescriptions, addField, setField]
+    [fields, globalFields, defaultVals, fieldDescriptions, addField, setField]
   );
 
   return <VarsContext.Provider value={value}>{children}</VarsContext.Provider>;
