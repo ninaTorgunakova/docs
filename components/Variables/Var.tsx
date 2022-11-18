@@ -10,17 +10,19 @@ interface VarProps {
   description?: string;
   needLabel?: boolean;
   isGlobal?: boolean;
+  default?: string;
 }
 
 export const Var = ({
   name,
   description = "",
+  defaultVal = "",
   needLabel = false,
   isGlobal = false,
 }: VarProps) => {
   const { fields, setField, addField } =
     useContext<VarsContextProps>(VarsContext);
-  const val = fields[name] || "";
+  const val = fields[defaultVal] || fields[name] || "";
 
   useEffect(() => {
     addField(name, isGlobal, description);
