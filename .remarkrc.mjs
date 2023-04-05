@@ -8,6 +8,7 @@ import {
   getVersionRootPath,
 } from "./.build/server/docs-helpers.mjs";
 import { loadConfig } from "./.build/server/config-docs.mjs";
+import { remarkLintSEO } from "./.build/server/remark-lint-seo.mjs";
 
 const configFix = {
   settings: {
@@ -67,6 +68,7 @@ const configLint = {
     [remarkCodeSnippet, { lint: true, langs: ["code", "bash"] }],
     [remarkLintDetails, ["error"]],
     [remarkLintFrontmatter, ["error"]],
+    [remarkLintSEO],
   ],
 };
 
