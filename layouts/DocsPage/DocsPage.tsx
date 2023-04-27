@@ -18,6 +18,7 @@ import Footer from "./Footer";
 import Navigation, { getCurrentCategoryIndex } from "./Navigation";
 
 import styles from "./DocsPage.module.css";
+import { useVersionAgnosticPages } from "utils/useVersionAgnosticPages";
 
 export interface DocsPageProps {
   meta: PageMeta;
@@ -47,6 +48,7 @@ const DocsPage = ({
 
   const { current, latest, available } = versions;
   const getPath = useFindDestinationPath(versions);
+  const { isVersionAgnosticPage } = useVersionAgnosticPages();
 
   useEffect(() => {
     setVersions(versions);
@@ -98,6 +100,7 @@ const DocsPage = ({
             getNewVersionPath={getPath}
             latest={latest}
             scopes={scopes}
+            isVersionAgnosticPage={isVersionAgnosticPage(route)}
           />
           {videoBanner && (
             <VideoBar className={styles.video} {...videoBanner} />
