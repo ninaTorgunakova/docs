@@ -22,7 +22,11 @@ const SearchResults = () => {
       <SiteHeader />
       <main className={styles.wrapper}>
         <div className={styles.body}>
-          <Header title={title} scopes={["noScope"]} />
+          <Header
+            title={title}
+            scopes={["noScope"]}
+            isVersionAgnosticPage={true}
+          />
           <SeparateSearch />
           <Footer>
             <div className={styles.footer}></div>
